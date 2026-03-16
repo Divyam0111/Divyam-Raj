@@ -549,8 +549,8 @@ nav {
     width: 100%;
 }
 
-.bg-artify { background-image: url('assets/Artify.png'); background-size: cover; background-position: center; }
-.bg-gym { background-image: url('assets/Gym.png'); background-size: cover; background-position: center; }
+.bg-artify { background-image: url('assets/ArtGallery.jpg'); background-size: cover; background-position: center; }
+.bg-gym { background-image: url('assets/GYM (2).png'); background-size: cover; background-position: center; }
 .bg-logotak { background-image: url('assets/logotak.png'); background-size: cover; background-position: center; }
 
 .card-content {

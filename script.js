@@ -1,4 +1,145 @@
+// Hide preloader when everything is fully loaded (with a fixed 10s duration)
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            preloader.classList.add('loaded');
+        }
+    }, 10000);
+});
+
+// Theme Switching Logic
 document.addEventListener('DOMContentLoaded', () => {
+    const themeToggle = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    if (currentTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    }
+});
+
+// Content loading and initialization
+document.addEventListener('DOMContentLoaded', () => {
+    async function loadContent() {
+        try {
+            const response = await fetch('content.json');
+            const data = await response.json();
+            
+            // 1. Update simple text elements
+            document.querySelectorAll('[data-content-key]').forEach(el => {
+                const key = el.getAttribute('data-content-key');
+                const value = key.split('.').reduce((obj, k) => obj[k], data);
+                
+                if (value) {
+                    if (el.tagName === 'A' && key.includes('text')) {
+                        el.textContent = value;
+                    } else if (el.classList.contains('hero-bg') || el.classList.contains('hero-img')) {
+                        el.style.backgroundImage = `url('${value}')`;
+                    } else {
+                        el.textContent = value;
+                    }
+                }
+            });
+
+            // 2. Update Experience
+            const expContainer = document.getElementById('experience-container');
+            if (expContainer && data.experience) {
+                expContainer.innerHTML = '';
+                data.experience.forEach((exp, index) => {
+                    const sideClass = index % 2 === 0 ? 'slide-in-left' : 'slide-in-right';
+                    const expCard = `
+                        <div class="experience-card ${sideClass}">
+                            <h3>${exp.title}</h3>
+                            <div class="company-header">
+                                <div class="company-logo">
+                                    <img src="${exp.logo}" alt="${exp.company} Logo" />
+                                </div>
+                                <h4>${exp.company} | ${exp.period}</h4>
+                            </div>
+                            <p>${exp.description.replace(/\n/g, '<br />')}</p>
+                        </div>
+                    `;
+                    expContainer.insertAdjacentHTML('beforeend', expCard);
+                });
+            }
+
+            // 3. Update Portfolio
+            const portfolioTrack = document.getElementById('portfolio-track');
+            if (portfolioTrack && data.portfolio) {
+                portfolioTrack.innerHTML = '';
+                data.portfolio.forEach(item => {
+                    const portfolioCard = `
+                        <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="portfolio-card">
+                            <div class="card-image" style="background-image: url('${item.image_url}'); background-size: cover; background-position: center;"></div>
+                            <div class="card-content">
+                                <h3>${item.title}</h3>
+                                <p>${item.description}</p>
+                            </div>
+                        </a>
+                    `;
+                    portfolioTrack.insertAdjacentHTML('beforeend', portfolioCard);
+                });
+            }
+
+            // 4. Update Skills
+            const skillsContainer = document.getElementById('skills-container');
+            if (skillsContainer && data.skills) {
+                skillsContainer.innerHTML = '';
+                const categories = {
+                    design: 'Design',
+                    frontend: 'Front-End',
+                    tools: 'Tools',
+                    soft_skills: 'Soft Skills'
+                };
+                
+                Object.entries(categories).forEach(([key, label]) => {
+                    if (data.skills[key]) {
+                        const skillCategory = `
+                            <div class="skill-category">
+                                <h3>${label}</h3>
+                                <div class="skills-container">
+                                    ${data.skills[key].map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                                </div>
+                            </div>
+                        `;
+                        skillsContainer.insertAdjacentHTML('beforeend', skillCategory);
+                    }
+                });
+            }
+
+            // Update email link href
+            const emailLink = document.getElementById('contact-email-link');
+            if (emailLink && data.contact.email) {
+                emailLink.href = `mailto:${data.contact.email}`;
+            }
+
+            // Re-initialize animations after dynamic content is loaded
+            if (typeof window.initAnimations === 'function') window.initAnimations();
+            
+            // Re-initialize carousel if track exists
+            if (typeof window.initCarousel === 'function') window.initCarousel();
+
+        } catch (error) {
+            console.error('Error loading content:', error);
+        }
+    }
+
+    // Call loadContent
+    loadContent();
+
     // Mobile menu toggle
     const menuToggle = document.getElementById('mobile-menu');
     const navLinks = document.querySelector('.nav-links');
@@ -9,7 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
             navLinks.classList.toggle('active');
         });
 
-        // Close mobile menu on link click
         document.querySelectorAll('.nav-links li a').forEach(link => {
             link.addEventListener('click', () => {
                 menuToggle.classList.remove('active');
@@ -18,47 +158,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Intersection Observer for scroll animations (fade-up and slide-in)
-    const fadeElements = document.querySelectorAll('.fade-up, .slide-in-left, .slide-in-right');
-
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.15
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            } else {
-                // Remove the class when scrolling back up
-                entry.target.classList.remove('visible');
-            }
-        });
-    }, observerOptions);
-
-    fadeElements.forEach(element => {
-        observer.observe(element);
-    });
-
-    // Change nav background on scroll & Parallax effect for hero image
+    // Change nav background on scroll
     const navbar = document.getElementById('navbar');
-    const heroImage = document.querySelector('.hero-image-container');
     
     window.addEventListener('scroll', () => {
-        // Nav transparency
         if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-            navbar.style.boxShadow = '0 1px 15px rgba(0,0,0,0.05)';
+            navbar.classList.add('scrolled');
         } else {
-            navbar.style.background = 'rgba(255, 255, 255, 0.5)';
-            navbar.style.boxShadow = 'none';
+            navbar.classList.remove('scrolled');
         }
-
-        const scrollY = window.scrollY;
-        // Keep a very slight vertical parallax just to make it breathe if we want
-        // But the main movement is handled by IntersectionObserver below
     });
 
     // Intersection Observer for Floating Profile Image States
@@ -68,16 +176,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (floatingProfile) {
         const sectionObserverOptions = {
             root: null,
-            rootMargin: '-30% 0px -30% 0px', // Trigger when section is mostly in middle of viewport
+            rootMargin: '-30% 0px -30% 0px',
             threshold: 0
         };
 
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Remove all state classes
                     floatingProfile.className = 'floating-image-container';
-                    // Add the new state class based on the section ID
                     floatingProfile.classList.add(`state-${entry.target.id}`);
                 }
             });
@@ -88,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Handle smooth scrolling for anchor links to offset the fixed navbar
+    // Handle smooth scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -108,92 +214,129 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+});
 
-    // Portfolio Carousel Logic
+// Expose these functions globally for admin.js
+window.initAnimations = function() {
+    const fadeElements = document.querySelectorAll('.fade-up, .slide-in-left, .slide-in-right');
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            } else {
+                entry.target.classList.remove('visible');
+            }
+        });
+    }, observerOptions);
+
+    fadeElements.forEach(element => {
+        observer.observe(element);
+    });
+};
+
+window.initCarousel = function() {
     const track = document.getElementById('portfolio-track');
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
 
     if (track && prevBtn && nextBtn) {
-        let currentIndex = 0;
+        // Clear existing clones if any (for re-init)
+        const clones = track.querySelectorAll('.clone');
+        clones.forEach(c => c.remove());
+
+        const cards = Array.from(track.querySelectorAll('.portfolio-card'));
+        if (cards.length === 0) return;
+
+        // Clone first and last cards for infinite effect
+        const firstClone = cards[0].cloneNode(true);
+        const lastClone = cards[cards.length - 1].cloneNode(true);
+
+        firstClone.classList.add('clone');
+        lastClone.classList.add('clone');
+
+        track.appendChild(firstClone);
+        track.insertBefore(lastClone, cards[0]);
+
+        let currentIndex = 1; // Start at the first real card
+        let isTransitioning = false;
         let autoPlayInterval;
         
-        const getMaxIndex = () => {
+        const getScrollAmount = () => {
             const card = track.querySelector('.portfolio-card');
-            if (!card) return 0;
-            const cardWidth = card.getBoundingClientRect().width;
             const gap = parseFloat(window.getComputedStyle(track).gap) || 0;
-            const scrollAmount = cardWidth + gap;
-            const visibleWidth = track.parentElement.getBoundingClientRect().width;
-            const totalWidth = track.scrollWidth;
-            return Math.max(0, Math.ceil((totalWidth - visibleWidth) / scrollAmount));
+            return card.getBoundingClientRect().width + gap;
         };
 
-        const updateCarousel = () => {
-            const card = track.querySelector('.portfolio-card');
-            if (!card) return;
-            
-            const cardWidth = card.getBoundingClientRect().width;
-            const gap = parseFloat(window.getComputedStyle(track).gap) || 0;
-            const scrollAmount = cardWidth + gap;
-            
+        const updateCarousel = (animate = true) => {
+            const scrollAmount = getScrollAmount();
+            track.style.transition = animate ? 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
             track.style.transform = `translateX(-${currentIndex * scrollAmount}px)`;
-            
-            const maxIndex = getMaxIndex();
-            prevBtn.disabled = currentIndex <= 0;
-            nextBtn.disabled = currentIndex >= maxIndex;
         };
+
+        const handleTransitionEnd = () => {
+            isTransitioning = false;
+            const cardsCount = track.querySelectorAll('.portfolio-card').length;
+            
+            if (currentIndex === 0) {
+                currentIndex = cardsCount - 2;
+                updateCarousel(false);
+            } else if (currentIndex === cardsCount - 1) {
+                currentIndex = 1;
+                updateCarousel(false);
+            }
+        };
+
+        // Remove old listener if re-initializing
+        track.removeEventListener('transitionend', track._transitionHandler);
+        track._transitionHandler = handleTransitionEnd;
+        track.addEventListener('transitionend', track._transitionHandler);
 
         const startAutoPlay = () => {
-            autoPlayInterval = setInterval(() => {
-                const maxIndex = getMaxIndex();
-                if (currentIndex < maxIndex) {
-                    currentIndex++;
-                } else {
-                    currentIndex = 0; // Loop back to start
-                }
-                updateCarousel();
-            }, 2000);
-        };
-
-        const stopAutoPlay = () => {
             clearInterval(autoPlayInterval);
+            autoPlayInterval = setInterval(() => {
+                if (!isTransitioning) {
+                    currentIndex++;
+                    isTransitioning = true;
+                    updateCarousel();
+                }
+            }, 3000);
         };
 
-        window.addEventListener('resize', () => {
-            currentIndex = 0;
-            updateCarousel();
-        });
+        const stopAutoPlay = () => clearInterval(autoPlayInterval);
 
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateCarousel();
-                stopAutoPlay();
-                startAutoPlay(); // Reset timer on manual click
-            }
-        });
+        window.removeEventListener('resize', window._carouselResizeHandler);
+        window._carouselResizeHandler = () => updateCarousel(false);
+        window.addEventListener('resize', window._carouselResizeHandler);
 
-        nextBtn.addEventListener('click', () => {
-            const maxIndex = getMaxIndex();
-            if (currentIndex < maxIndex) {
-                currentIndex++;
-                updateCarousel();
-                stopAutoPlay();
-                startAutoPlay(); // Reset timer on manual click
-            }
-        });
-
-        // Pause on hover
-        const carouselWrapper = document.querySelector('.portfolio-carousel-wrapper');
-        if (carouselWrapper) {
-            carouselWrapper.addEventListener('mouseenter', stopAutoPlay);
-            carouselWrapper.addEventListener('mouseleave', startAutoPlay);
-        }
-
-        setTimeout(() => {
+        prevBtn.onclick = () => {
+            if (isTransitioning) return;
+            currentIndex--;
+            isTransitioning = true;
             updateCarousel();
             startAutoPlay();
-        }, 100);
+        };
+
+        nextBtn.onclick = () => {
+            if (isTransitioning) return;
+            currentIndex++;
+            isTransitioning = true;
+            updateCarousel();
+            startAutoPlay();
+        };
+
+        const wrapper = track.parentElement;
+        if (wrapper) {
+            wrapper.onmouseenter = stopAutoPlay;
+            wrapper.onmouseleave = startAutoPlay;
+        }
+
+        updateCarousel(false);
+        startAutoPlay();
     }
-});
+};

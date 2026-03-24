@@ -1,0 +1,33 @@
+[0m[0m
+[0m[4mC:\Users\subha\OneDrive\Desktop\Antigravity testing\Divyam Raj\old_portfolio\admin.js[24m[0m
+[0m  [2m214:32[22m  [31merror[39m  'openEditModal' is not defined  [2mno-undef[22m[0m
+[0m[0m
+[0m[4mC:\Users\subha\OneDrive\Desktop\Antigravity testing\Divyam Raj\routes\authRoutes.js[24m[0m
+[0m   [2m3:8[22m  [31merror[39m  'bcrypt' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  [2mno-unused-vars[22m[0m
+[0m  [2m33:7[22m  [31merror[39m  'process' is not defined                                                       [2mno-undef[22m[0m
+[0m[0m
+[0m[4mC:\Users\subha\OneDrive\Desktop\Antigravity testing\Divyam Raj\routes\contentRoutes.js[24m[0m
+[0m  [2m11:39[22m  [31merror[39m  'process' is not defined       [2mno-undef[22m[0m
+[0m  [2m14:12[22m  [31merror[39m  'e' is defined but never used  [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\subha\OneDrive\Desktop\Antigravity testing\Divyam Raj\seed.js[24m[0m
+[0m   [2m4:8[22m   [31merror[39m  'path' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  [2mno-unused-vars[22m[0m
+[0m  [2m11:28[22m  [31merror[39m  'process' is not defined                                                     [2mno-undef[22m[0m
+[0m  [2m30:5[22m   [31merror[39m  'process' is not defined                                                     [2mno-undef[22m[0m
+[0m[0m
+[0m[4mC:\Users\subha\OneDrive\Desktop\Antigravity testing\Divyam Raj\server.js[24m[0m
+[0m   [2m7:8[22m   [31merror[39m  'path' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  [2mno-unused-vars[22m[0m
+[0m  [2m25:18[22m  [31merror[39m  'process' is not defined                                                     [2mno-undef[22m[0m
+[0m  [2m45:14[22m  [31merror[39m  'process' is not defined                                                     [2mno-undef[22m[0m
+[0m[0m
+[0m[4mC:\Users\subha\OneDrive\Desktop\Antigravity testing\Divyam Raj\src\App.jsx[24m[0m
+[0m  [2m1:10[22m  [31merror[39m  'useState' is defined but never used. Allowed unused vars must match /^[A-Z_]/u   [2mno-unused-vars[22m[0m
+[0m  [2m1:20[22m  [31merror[39m  'useEffect' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\subha\OneDrive\Desktop\Antigravity testing\Divyam Raj\src\pages\Admin.jsx[24m[0m
+[0m  [2m15:9[22m   [31merror[39m  'navigate' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  [2mno-unused-vars[22m[0m
+[0m  [2m51:14[22m  [31merror[39m  'err' is defined but never used                                                           [2mno-unused-vars[22m[0m
+[0m  [2m95:14[22m  [31merror[39m  'err' is defined but never used                                                           [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[31m[1m✖ 16 problems (16 errors, 0 warnings)[22m[39m[0m
+[0m[31m[1m[22m[39m[0m

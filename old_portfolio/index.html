@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divyam Raj | Portfolio</title>
+    <!-- Add SEO tags -->
+    <meta name="description"
+        content="Divyam Raj - Front End Engineer and UI/UX Enthusiast. View my creative portfolio, skills, and experience.">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <img src="assets/dr-logo-light.png" alt="Divyam Raj Logo" class="preloader-logo logo-light">
+            <img src="assets/logo.png" alt="Divyam Raj Logo" class="preloader-logo logo-dark">
+            <div class="loading-bar-container">
+                <div class="loading-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <nav id="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">Divyam Raj</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#portfolio">Work</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="admin.html" class="nav-admin-link">Admin <svg class="admin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></a></li>
+                <li>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                </li>
+            </ul>
+            <div class="menu-toggle" id="mobile-menu" aria-label="Toggle Navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Dynamic Floating Profile Image -->
+        <div id="floating-profile" class="floating-image-container state-home">
+            <div class="hero-img" data-content-key="hero.profile_image"></div>
+        </div>
+
+        <section id="home" class="hero">
+            <div class="hero-content fade-up">
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <h1 data-content-key="hero.title">Hello, I'm Divyam Raj.</h1>
+                <h2 data-content-key="hero.subtitle">Website Project Manager</h2>
+                <h3 data-content-key="hero.description">Front End Engineer & UI/UX Enthusiast.</h3>
+                <div class="hero-actions">
+                    <a href="#portfolio" class="btn btn-primary" data-content-key="hero.cta_text">See My Work</a>
+                    <a href="assets/Divyam Raj.pdf" download="Divyam_Raj_Resume.pdf" class="btn btn-secondary" data-content-key="hero.resume_text">Resume</a>
+                </div>
+            </div>
+            <div class="hero-bg" data-content-key="hero.bg_image" style="background-image: url('assets/hero-bg.jpg');"></div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container fade-up">
+                <h2 class="section-title" data-content-key="about.title">About Me.</h2>
+                <p class="section-text" data-content-key="about.p1">
+                    I’m a UI/UX designer with a strong foundation in front-end development and experience leading
+                    website projects.
+                </p>
+                <p class="section-text" data-content-key="about.p2">
+                    Currently working as a Website Project Manager at MavenPro Solutions, I collaborate with designers,
+                    developers, and stakeholders to deliver high-quality web experiences.
+                </p>
+                <p class="section-text highlight-text" data-content-key="about.p3">
+                    My goal is to design clean, intuitive, and accessible interfaces while bridging the gap between
+                    design and development.
+                </p>
+            </div>
+        </section>
+
+        <section id="experience" class="section section-dark">
+            <div class="container fade-up">
+                <h2 class="section-title">Experience.</h2>
+
+                <div class="experience-grid" id="experience-container">
+                    <!-- Loaded dynamically from content.json -->
+                    <div class="experience-card slide-in-left">
+                        <h3>Website Project Manager</h3>
+                        <div class="company-header">
+                            <div class="company-logo logo-maven">
+                                <img src="assets/mslogo.png" alt="Mavenpro Solutions Logo" />
+                            </div>
+                            <h4>Mavenpro Solutions | Jan 2026 - Present</h4>
+                        </div>
+                        <p>Managing website projects from planning to launch, coordinating between designers,
+                            developers, and clients to ensure smooth project delivery.
+                            <br />
+                            Along with project management, I also contribute to website design, creating user-focused
+                            layouts and ensuring the final product aligns with usability and visual design standards.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="section">
+            <div class="container fade-up">
+                <h2 class="section-title">Selected Work.</h2>
+
+                <div class="portfolio-carousel-wrapper">
+                    <div class="portfolio-carousel-viewport">
+                        <div class="portfolio-grid" id="portfolio-track">
+                            <!-- Loaded dynamically from content.json -->
+                            <a href="https://art-gallery-azure-six.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio-card">
+                                <div class="card-image"></div>
+                                <div class="card-content">
+                                    <h3>Art Gallery</h3>
+                                    <p>Built a creative digital art-sharing platform with user authentication and real-time
+                                        collaboration.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="carousel-controls">
+                        <button id="prev-btn" class="carousel-btn" aria-label="Previous work">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                        <button id="next-btn" class="carousel-btn" aria-label="Next work">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section section-dark">
+            <div class="container fade-up">
+                <h2 class="section-title">Skills.</h2>
+                <div class="skills-categories" id="skills-container">
+                    <!-- Loaded dynamically from content.json -->
+                    <div class="skill-category">
+                        <h3>Design</h3>
+                        <div class="skills-container">
+                            <span class="skill-tag">Figma</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="container fade-up">
+                <h2 class="section-title" data-content-key="contact.title">Get in Touch.</h2>
+                <div class="contact-content text-center">
+                    <h3 style="font-size: 2rem; margin-bottom: 16px;" data-content-key="contact.heading">Let’s build something meaningful together.</h3>
+                    <p class="section-text" style="margin-bottom: 40px;" data-content-key="contact.description">
+                        If you’re looking for someone who can design and build user-focused digital experiences, feel
+                        free to reach out.
+                    </p>
+
+                    <a href="mailto:divyam.official111@gmail.com" class="email-card" id="contact-email-link">
+                        <div class="email-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                </path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <span class="email-text" data-content-key="contact.email">divyam.official111@gmail.com</span>
+                    </a>
+
+                    <div class="contact-links-area">
+                        <h4
+                            style="font-size: 1.25rem; color: var(--text-color-light); margin-bottom: 16px; font-weight: 400;">
+                            Links</h4>
+                        <div class="social-links" style="justify-content: center;">
+                            <a href="https://linkedin.com/in/divyamr" target="_blank" rel="noopener noreferrer"
+                                class="social-icon" aria-label="LinkedIn" title="LinkedIn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                    </path>
+                                    <rect x="2" y="9" width="4" height="12"></rect>
+                                    <circle cx="4" cy="4" r="2"></circle>
+                                </svg>
+                            </a>
+                            <a href="https://github.com/Divyam0111" target="_blank" rel="noopener noreferrer"
+                                class="social-icon" aria-label="GitHub" title="GitHub">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                    </path>
+                                </svg>
+                            </a>
+
+
+
+                        </div>
+                    </div>
+                </div><br>
+                <br>
+                <br>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Divyam Raj. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

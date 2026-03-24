@@ -1,0 +1,77 @@
+{
+  "settings": {
+    "admin_email": "divyam.official0111@gmail.com",
+    "admin_password": "0000000000",
+    "template": "modern-dark"
+  },
+  "hero": {
+    "title": "Hello, I'm Divyam Raj.",
+    "subtitle": "Website Project Manager",
+    "description": "Front End Engineer & UI/UX Enthusiast.",
+    "cta_text": "See My Work",
+    "resume_text": "Resume",
+    "bg_image": "assets/hero-bg.jpg",
+    "profile_image": "assets/img.jpeg"
+  },
+  "about": {
+    "title": "About Me.",
+    "p1": "I’m a UI/UX designer with a strong foundation in front-end development and experience leading website projects.",
+    "p2": "Currently working as a Website Project Manager at MavenPro Solutions, I collaborate with designers, developers, and stakeholders to deliver high-quality web experiences.",
+    "p3": "My goal is to design clean, intuitive, and accessible interfaces while bridging the gap between design and development."
+  },
+  "experience": [
+    {
+      "title": "Website Project Manager",
+      "company": "Mavenpro Solutions",
+      "period": "Jan 2026 - Present",
+      "logo": "assets/mslogo.png",
+      "description": "Managing website projects from planning to launch, coordinating between designers, developers, and clients to ensure smooth project delivery.\nAlong with project management, I also contribute to website design, creating user-focused layouts and ensuring the final product aligns with usability and visual design standards."
+    },
+    {
+      "title": "UI/UX Intern",
+      "company": "Logotak.in",
+      "period": "Jan 2025 - Mar 2025",
+      "logo": "assets/logotak_logo.jpeg",
+      "description": "Independently designed and developed the WordPress website www.logotak.in, creating wireframes, user flows, and intuitive UI while managing end-to-end development from concept to launch."
+    },
+    {
+      "title": "Analyst",
+      "company": "Capgemini",
+      "period": "Oct 2021 - Apr 2023",
+      "logo": "assets/capgeminiBlue.svg",
+      "description": "Assisted in designing interactive UI prototypes, conducted user testing, and provided feedback to improve overall user experience."
+    }
+  ],
+  "portfolio": [
+    {
+      "title": "Art Gallery",
+      "description": "Built a creative digital art-sharing platform with user authentication and real-time collaboration.",
+      "url": "https://art-gallery-azure-six.vercel.app/",
+      "image_url": "assets/ArtGallery.jpg"
+    },
+    {
+      "title": "Divine Gym",
+      "description": "Developed a fitness management application with interactive workout tracking and diet planning.",
+      "url": "https://divine-gym-vert.vercel.app/",
+      "image_url": "assets/GYM (2).png"
+    },
+    {
+      "title": "Logotak",
+      "description": "Created a Digital marketing agency website using WordPress.",
+      "url": "https://logotak.in/",
+      "image_url": "assets/logotak.png"
+    }
+  ],
+  "skills": {
+    "design": ["Figma", "UX Research", "Wireframing", "Prototyping", "User Flows"],
+    "frontend": ["HTML", "CSS", "JavaScript", "React", "Bootstrap", "WordPress"],
+    "tools": ["GitHub", "VS Code", "Adobe XD"],
+    "soft_skills": ["Collaboration", "Communication", "Problem Solving", "Adaptability", "Project Coordination"]
+  },
+  "contact": {
+    "title": "Get in Touch.",
+    "heading": "Let’s build something meaningful together.",
+    "description": "If you’re looking for someone who can design and build user-focused digital experiences, feel free to reach out.",
+    "email": "divyam.official111@gmail.com"
+  }
+}

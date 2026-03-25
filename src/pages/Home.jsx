@@ -85,10 +85,17 @@ const Loader = () => (
 const Home = () => {
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [errorDetails, setErrorDetails] = useState('');
 
   useEffect(() => {
     Promise.all([
-      fetch('/api/content').then(res => res.json()),
+      fetch('/api/content').then(async res => {
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error ? `Error: ${data.message} | Details: ${data.error} | URI Check: ${data.uriStart || 'Missing'}` : 'Failed to fetch content');
+        }
+        return data;
+      }),
       new Promise(resolve => setTimeout(resolve, 1500)) // Guarantee at least 1.5s display of the beautiful loader
     ])
       .then(([data]) => {
@@ -97,6 +104,7 @@ const Home = () => {
       })
       .catch(err => {
         console.error(err);
+        setErrorDetails(err.message);
         setLoading(false);
       });
   }, []);
@@ -107,7 +115,24 @@ const Home = () => {
     }
   }, [content?.settings?.template]);
 
-  if (!content && !loading) return <div style={{ color: 'white', textAlign: 'center', marginTop: '20vh' }}>Error loading content. Please check static data or database connection.</div>;
+  if (!content && !loading) return (
+    <div style={{ color: 'white', textAlign: 'center', marginTop: '15vh', padding: '20px', fontFamily: 'Inter, sans-serif' }}>
+      <h2 style={{ color: '#ff4c4c', marginBottom: '15px' }}>Database Connection Failed (Vercel)</h2>
+      <p>Your Vercel backend cannot connect to your MongoDB database.</p>
+      <div style={{ background: '#222', padding: '15px', color: '#00d4ff', borderRadius: '8px', maxWidth: '800px', margin: '20px auto', wordWrap: 'break-word', border: '1px solid #333' }}>
+        <code>{errorDetails || "Unknown Network Error. Check Vercel Logs."}</code>
+      </div>
+      <div style={{ textAlign: 'left', maxWidth: '600px', margin: '20px auto', lineHeight: '1.6', background: '#111', padding: '20px', borderRadius: '8px' }}>
+        <strong>Checklist to Fix:</strong>
+        <ol style={{ marginTop: '10px', marginLeft: '20px', color: '#ccc' }}>
+          <li>Did you add <code>MONGODB_URI</code> to Vercel Project Settings?</li>
+          <li>Does the URI point to a real cloud MongoDB Atlas (not <code>127.0.0.1</code>)?</li>
+          <li>Did you allow <code>0.0.0.0/0</code> in MongoDB Atlas Network Access?</li>
+          <li style={{ color: '#ffeb3b' }}><strong>Did you click Redeploy on Vercel after changing variables?</strong> Environment variables require a fresh redeploy to take effect!</li>
+        </ol>
+      </div>
+    </div>
+  );
 
   return (
     <>

@@ -55,7 +55,11 @@ app.get('/api/content', async (req, res) => {
     }
     res.json(content);
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ 
+      message: 'Server error', 
+      error: err.message, 
+      uriStart: process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 15) + '...' : 'MISSING'
+    });
   }
 });
 

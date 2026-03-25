@@ -15,8 +15,11 @@ const Login = ({ onLogin }) => {
     setError('');
     try {
       const res = await fetch('/api/content');
-      if (!res.ok) throw new Error("Database fetch failed");
       const dbContent = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(dbContent.error ? `DB Connection Failed: ${dbContent.error}` : "Database fetch failed");
+      }
       
       if (dbContent.settings && email === dbContent.settings.admin_email && password === dbContent.settings.admin_password) {
         const dummyToken = 'static-token-123';
@@ -26,7 +29,7 @@ const Login = ({ onLogin }) => {
         setError('Invalid email or password.');
       }
     } catch (err) {
-      setError('Error verifying credentials with server.');
+      setError(err.message || 'Error verifying credentials with server.');
     } finally {
       setLoading(false);
     }

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, ExternalLink, Github } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Portfolio = ({ data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const next = () => setCurrentIndex((prev) => (prev + 1) % data.length);
-  const prev = () => setCurrentIndex((prev) => (prev - 1 + data.length) % data.length);
+  const next = () => setCurrentIndex((prev) => (data && data.length > 0 ? (prev + 1) % data.length : 0));
+  const prev = () => setCurrentIndex((prev) => (data && data.length > 0 ? (prev - 1 + data.length) % data.length : 0));
 
   return (
     <section id="portfolio" className="section">
@@ -23,10 +23,12 @@ const Portfolio = ({ data }) => {
         <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative' }}>
           <div style={{ overflow: 'hidden', padding: '40px 20px', position: 'relative' }}>
             <motion.div 
-              style={{ display: 'flex', transition: 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)', transform: `translateX(-${currentIndex * 100}%)` }}
+              style={{ display: 'flex' }}
+              animate={{ x: `-${currentIndex * 100}%` }}
+              transition={{ ease: [0.25, 1, 0.5, 1], duration: 0.6 }}
             >
-              {data.map((item, index) => (
-                <div key={index} style={{ minWidth: '100%', padding: '0 20px', boxSizing: 'border-box' }}>
+              {data && data.length > 0 ? data.map((item, index) => (
+                <div key={index} style={{ flex: '0 0 100%', padding: '0 20px', boxSizing: 'border-box' }}>
                   <div className="glass-3d-card" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: 0, overflow: 'hidden' }}>
                     <div style={{ height: '350px', backgroundImage: `url('/${item.image_url}')`, backgroundSize: 'cover', backgroundPosition: 'center', borderBottom: '1px solid var(--glass-border)' }} />
                     <div style={{ padding: '30px' }}>
@@ -40,9 +42,10 @@ const Portfolio = ({ data }) => {
                     </div>
                   </div>
                 </div>
-              ))}
+              )) : <div style={{ color: 'white', padding: '20px' }}>No portfolio data available.</div>}
             </motion.div>
           </div>
+
           
           <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
             <button onClick={prev} className="btn-secondary" style={{ width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
